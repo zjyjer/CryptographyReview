@@ -12,3 +12,7 @@ The solution of the review of cryptography final
 ----- 2014.6.9 16:01 update -----
 
 添加了11题的答案
+
+----- 2014.6.9 16:34 update -----
+
+添加了12题的答案
