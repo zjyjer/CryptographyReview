@@ -82,7 +82,7 @@ $$ c=K_3 \oplus E_{k_2}(K_1\oplus m), m=D_{K_2}(K_3 \oplus c) \oplus K_1$$
 |item $T$计算$S_i = f(i)(mod p) , 1 \le i \le n$(或者任意$n$个不同的点$i$,$1 \le i \le p-1$),并且安全的传递分享$S_i$以及相应的公开指标$i$给用户$P_i$。
 \end{enumerate}
 
-\subsubsection{恢复秘密} 任何$t$或更多个用户提交他们的分享。他们的分享提供了$t$个不同的点$(x,y)=(i, S_i)$,通过$Lagrange$插值法,可以计算出所有多项式$f(x)$的系数$a_j$,$1 \le j \le t-1$,这样秘密就是$f(0)=a_0=S$。
+\subsubsection{恢复秘密} 任何$t$或更多个用户提交他们的分享。他们的分享提供了$t$个不同的点$(x,y)=(i, S_i)$, 通过$Lagrange$插值法,可以计算出所有多项式$f(x)$的系数$a_j$,$1 \le j \le t-1$,这样秘密就是$f(0)=a_0=S$。
 \subsection{性质}
 \subsubsection{完备} 给出任意$t-1$或更少的分享，所有共享的秘密取值$0\le S \le p-1$有相等的可能性
 \subsubsection{理想}分享的数据长度与秘密长度相等。
@@ -106,5 +106,21 @@ $$ c=K_3 \oplus E_{k_2}(K_1\oplus m), m=D_{K_2}(K_3 \oplus c) \oplus K_1$$
 \end{enumerate}
 \section{Schnorr鉴别方案}
 
+\subsection{系统参数选择}
+\subsubsection{}选择一个适当的素数$p$满足$p-1$可以被另一个素数$q$整除。（保证模$p$的离散对数在计算上不可能。）
+\subsubsection{}选择一个乘法阶为$q$的元$\beta, 1\le \beta \le p-1$。
+\subsubsection{}每一方得到一份真实的系统参数($p,q,\beta$)和信任中心T的验证公开密钥的函数，它可以验证T对消息$m$的签名$S_t(m)$。($S_t$涉及在签名之前的一个适当的公开的Hash函数和任意一个签名机制。)
+\subsubsection{}选择一个安全参数$t$（例如，$t \ge40$),$2^t < q$(定义一个安全等级$2^t$)。
+
+\subsection{每个用户参数选择}
+\subsubsection{}每个实体$A$选择一个唯一身份$I_A$。
+\subsubsection{}$A$选择一个秘密密钥$a$,$0 \le a \le q-1$, 并计算$v \equiv \beta^{-\alpha} (mod p)$。
+\subsubsection{}$A$向$T$通过传统方式（例如，出示护照） 验证自己的身份，接着将真实的$v$传递给$T$，最后得到一个由$T$颁发的证书$cert_A=(I_A,v,S_T(I_A,v))$将$I_A$和$v$绑定。
+
+\subsection{协议执行} A按如下步骤向B验证自己的身份。
+\subsubsection{}A选择一个随机数$r$(承诺),$1\le r \le q-1$, 计算（证据）$x\equiv \beta^r(mod p)$, 并发送($cert_A, x$)给B。
+\subsubsection{}B通过T在证书$cert_A$中的签名验证A的公开密钥$v$的真实性，接着发送一个(从未使用过的）随机数$e$(提问), $1 \le e \le 2^t$, 给A。
+\subsubsection{}A检查$1\le e \le2^t$并发送（回答）$y\equiv a·e+r(mod q)给B$。
+\subsubsection{}B计算$z\equiv \beta^y·v^e(mod p)$, 如果 $z=x$, 接受A的身份。
 \section{密钥协商中的站对站(STS)协议。密钥协商协议的基本安全要求有哪些？}
 \end{document}
