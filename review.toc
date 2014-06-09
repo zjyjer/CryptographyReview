@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}密码学的基本安全问题是什么？公钥加密方案必须抵抗的攻击类型有哪些？}{2}
+\contentsline {subsection}{\numberline {1.1}机密问题}{2}
+\contentsline {subsection}{\numberline {1.2}数据真实完整问题}{2}
+\contentsline {subsection}{\numberline {1.3}认证问题}{2}
+\contentsline {subsection}{\numberline {1.4}不可否认问题}{2}
+\contentsline {section}{\numberline {2}扩展Euclidean算法计算最大公约数(a, b)以及整数x和y满足(a, b)=ax+by的过程，这里a和b都是整数。如何应用费马小定理计算21000000模19的最小正整数。如何应用中国剩余定理计算同余组。群、环、域的基本概念。}{3}
+\contentsline {section}{\numberline {3}几种提高DES安全强度的方法。修改发现码(MDC)的性质有哪些？}{3}
+\contentsline {section}{\numberline {4}AES的层有哪些? 典型的加密模式有哪些？}{3}
+\contentsline {section}{\numberline {5}RSA公钥加密算法及正确性证明。模4余3型素数的Rabin算法解密技术。}{3}
+\contentsline {section}{\numberline {6}ElGamal加密算法及正确性证明。}{3}
+\contentsline {section}{\numberline {7}RSA数字签名算法及正确性证明。}{3}
+\contentsline {section}{\numberline {8}Gordon强素数生成算法及正确性证明。非邻接表(NAF)表示。}{3}
+\contentsline {section}{\numberline {9}电子现金的安全要求有哪些？}{3}
+\contentsline {section}{\numberline {10}基本的Shamir门限方案与性质。}{3}
+\contentsline {section}{\numberline {11}公平电子投币协议的安全要求是什么？如何建立一个基于平方根的公平电子投币协议。}{3}
+\contentsline {section}{\numberline {12}Schnorr鉴别方案}{3}
+\contentsline {section}{\numberline {13}密钥协商中的站对站(STS)协议。密钥协商协议的基本安全要求有哪些？}{3}

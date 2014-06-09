@@ -1,0 +1,97 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{xeCJK}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fontspec}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{pgf,tikz}
+\usepackage{clrscode}
+\usepackage{enumerate}
+\usetikzlibrary{shapes,arrows,automata}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{Microsoft YaHei}
+
+\title{密码学复习题及答案 ver 1.0}
+\author{Jer}
+
+\begin{document}
+\maketitle
+%\tableofcontents
+
+\section{密码学的基本安全问题是什么？公钥加密方案必须抵抗的攻击类型有哪些？}
+\subsection{基本安全问题}
+\subsubsection{机密问题}这指的是除了信息的授权人可以拥有信息以外，其他人都不可获得信息内容。在密码学中，主要是通过加密和解密算法来完成这项任务。
+\subsubsection{数据真实完整问题}这一问题的提出是为了发现对数据的非法变更。为了做到这一点，必须提供发现非授权人对数据变动的机制。许多密码工具可以提供这一机制，如Hash函数等。
+\subsubsection{认证问题}这是一个与识别相关的问题，可以应用于实体也可以应用于信息本身。两方在进行通信之前，一般需要识别对方的身份。而在信道上传输的一条信息也需要识别它是何时、何地、何内容由何人发出。因此，认证在密码学中常常被分成两类：实体认证和数据源认证。可以看出数据源认证隐含了提供数据真实性服务，这是因为数据被修改，数据源也就自然发生了变更。
+\subsubsection{不可否认问题}这一问题的提出是为了阻止实体否认从前的承诺或行为。争议的发生常常是由于实体否认从前的某个行为。例如，一个实体与另一个实体签署了购买合同，但事后又否认签署过，这时常常需要一个可信第三方来解决争议。这就需要提供必要的手段来解决争议。在密码学中，解决这一问题的手段常常是数字签名。
+
+\subsection{公钥必须抵抗的攻击类型}
+\subsubsection{（适应性）选择明文攻击}
+\subsubsection{（适应性）选择密文攻击}
+\subsubsection{已知明文攻击}
+\subsubsection{唯密文攻击}
+
+\section{扩展Euclidean算法计算最大公约数(a, b)以及整数x和y满足(a, b)=ax+by的过程，这里a和b都是整数。如何应用费马小定理计算$2^{1000000}$模$19$的最小正整数。如何应用中国剩余定理计算同余组。群、环、域的基本概念。}
+
+\section{几种提高DES安全强度的方法。修改发现码(MDC)的性质有哪些？}
+\subsection{提高DES安全强度的方法}
+\begin{enumerate}[1)]
+\item 双重DES加密是使用一个密钥加密明文接着再用另一个不同的密钥加密。Merkle和Hellman使用中间人攻击表明双重DES 加密与57比特而不是112比特的安全强度相当。
+\item 三重DES加密的安全强度大约可以达到112比特。至少有两个版本的三重DES加密执行，一个是：
+$$ c = E_{k_1}(E_{k_2}(E_{k_3}(m))), m=D_{k_3}(D_{k_2}(D_{k_1}(c)))$$
+另一个是：
+$$ c = E_{k_1}(D_{k_2}(E_{k_1}(m))), m=D_{k_1}(E_{k_2}(D_{k_1}(c))) $$
+这两个版本都可以抵抗中间人攻击。
+\item 另一个版本的DES加密方法由Rivest提出
+$$ c=K_3 \oplus E_{k_2}(K_1\oplus m), m=D_{K_2}(K_3 \oplus c) \oplus K_1$$
+这一方法也叫做DESX，已经证明了其有相当的安全强度。DESX已经自1986年起被用于MailSafe电子邮件安全系统，自1987年起用于BSAFE工具包。\\
+\# 这个版本的好处在于它能够很容易地在现有DES硬件上执行。
+\end{enumerate}
+\subsection{修改发现码(MDC)的性质}
+(1) 原像不可逆：对于几乎所有的Hash输出不可能计算出其的Hash输入。也就是，在不知道输入的情况下给定任意一个输出y，找到任意一个输入x’满足h(x’)=y 是计算不可能的。
+(2) 二次原像不可逆：对于任何一个给定的输入x，找到另一个输入$x’\ne x$，且满足h(x)=h(x’)，在计算上不可能。
+(3) 抵抗碰撞：找到两个不同的输入x和x’，满足$h(x)=h(x’)$，在计算上不可能(注意：这里两个输入可以自由选择)。
+
+\section{AES的层有哪些? 典型的加密模式有哪些？}
+
+\section{RSA公钥加密算法及正确性证明。模4余3型素数的Rabin算法解密技术。}
+
+\section{ElGamal加密算法及正确性证明。}
+
+\section{RSA数字签名算法及正确性证明。}
+
+\section{Gordon强素数生成算法及正确性证明。非邻接表(NAF)表示。}
+
+\section{电子现金的安全要求有哪些？}
+\subsection{认证}交易中的参与者都是真实的不存在冒充者并且签名不存在伪造的情况。
+\subsection{真实}各种文件如订单和账单不能被变更。
+\subsection{隐私}具体的交易细节应该尽量保证安全。
+\subsection{安全}敏感的账户信息如信用卡号应该得到保护。
+\section{基本的Shamir门限方案与性质。}
+
+\subsection{Shamir的（t，n）门限方案}
+\subsubsection{建立秘密} 可信方T有一个秘密$S\ge0$并希望分给n个用户。
+\begin{enumerate}[1)]
+\item $T$选择一个素数$p > max(S,n)$,并定义$a_0 = S$.
+\item $T$选择$t-1$个随机相互独立的系数$a_1,a_2,\dots,a_{t-1}$，$0 \le a_j \le p-1$,
+这样可以定义一个在$Z_p$上的随机多项式：$f(x)= \sum_{j=0}^{t-1}a_j· x^j$
+|item $T$计算$S_i = f(i)(mod p) , 1 \le i \le n$(或者任意$n$个不同的点$i$,$1 \le i \le p-1$),并且安全的传递分享$S_i$以及相应的公开指标$i$给用户$P_i$。
+\end{enumerate}
+
+\subsubsection{恢复秘密} 任何$t$或更多个用户提交他们的分享。他们的分享提供了$t$个不同的点$(x,y)=(i, S_i)$,通过$Lagrange$插值法,可以计算出所有多项式$f(x)$的系数$a_j$,$1 \le j \le t-1$,这样秘密就是$f(0)=a_0=S$。
+\subsection{性质}
+\subsubsection{完备} 给出任意$t-1$或更少的分享，所有共享的秘密取值$0\le S \le p-1$有相等的可能性
+\subsubsection{理想}分享的数据长度与秘密长度相等。
+\subsubsection{对新用户的扩展}新的分享（给新用户）可以容易的计算分配并且不影响现有的用户。
+\subsubsection{多种层次控制}假如单个用户有多个密码分享，其就有相对只有单个秘密分享的用户更多的分享秘密能力，而这样的安排不会影响方案恢复秘密机制。
+\subsubsection{无不能证明的假设}不同于许多密码方案，该方案的安全性不依赖于任何未经证明的假设（例如：数论困难问题）。
+\section{公平电子投币协议的安全要求是什么？如何建立一个基于平方根的公平电子投币协议。}
+
+\section{Schnorr鉴别方案}
+
+\section{密钥协商中的站对站(STS)协议。密钥协商协议的基本安全要求有哪些？}
+\end{document}
