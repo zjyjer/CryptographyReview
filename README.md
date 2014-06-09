@@ -3,7 +3,7 @@ CryptographyReview
 
 The solution of the review of cryptography final
 
-根据ppt整理的答案-.-|| 可能有疏漏
+根据ppt整理的答案-.-|| 可能有疏漏 欢迎大家指出
 
 ----- 2014.6.9 15：39 update -----
 
