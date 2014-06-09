@@ -91,6 +91,19 @@ $$ c=K_3 \oplus E_{k_2}(K_1\oplus m), m=D_{K_2}(K_3 \oplus c) \oplus K_1$$
 \subsubsection{无不能证明的假设}不同于许多密码方案，该方案的安全性不依赖于任何未经证明的假设（例如：数论困难问题）。
 \section{公平电子投币协议的安全要求是什么？如何建立一个基于平方根的公平电子投币协议。}
 
+\subsection{要求}
+\begin{enumerate}[(1)]
+\item Bob必须在听到Alice猜测之前就已经投币。
+\item Bob不能够在听到Alice猜测之后重复投币。
+\item Alice不能在其猜测之前得到投币结果。
+\end{enumerate}
+\subsection{基于平方根的公平电子投币协议}
+\begin{enumerate}
+\item Alice选择两个大的随机素数$p$和$q$,都为模4余3型。她将$p$和$q$保密，而将$n=p*q$发给Bob。
+\item Bob随机选择一个整数$x$并计算$y \equiv x^2(mod n)$。他将$x$保密但发送$y$给Alice。
+\item Alice使用她的$p$和$q$计算4个$y$模$n$的平方根$\pm a,\pm b$。她任意选择一个，假定为b,并发给Bob。
+\item 如果$b\equiv \pm x(mod n)$,Bob告诉Alice她赢。如果$b \not\equiv\pm x(mod n)$，Bob赢。
+\end{enumerate}
 \section{Schnorr鉴别方案}
 
 \section{密钥协商中的站对站(STS)协议。密钥协商协议的基本安全要求有哪些？}
