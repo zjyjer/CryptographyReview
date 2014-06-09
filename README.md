@@ -20,3 +20,7 @@ The solution of the review of cryptography final
 ----- 2014.6.10 00:50 update -----
 
 添加了13题的答案 还有六道题了=。=
+
+----- 2014.6.10 1：38 update -----
+
+添加了4题的答案 还有五道计算/证明题
