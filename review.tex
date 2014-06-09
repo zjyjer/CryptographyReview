@@ -30,10 +30,10 @@
 \subsubsection{不可否认问题}这一问题的提出是为了阻止实体否认从前的承诺或行为。争议的发生常常是由于实体否认从前的某个行为。例如，一个实体与另一个实体签署了购买合同，但事后又否认签署过，这时常常需要一个可信第三方来解决争议。这就需要提供必要的手段来解决争议。在密码学中，解决这一问题的手段常常是数字签名。
 
 \subsection{公钥必须抵抗的攻击类型}
-\subsubsection{（适应性）选择明文攻击}
-\subsubsection{（适应性）选择密文攻击}
-\subsubsection{已知明文攻击}
-\subsubsection{唯密文攻击}
+\subsubsection{}（适应性）选择明文攻击
+\subsubsection{}（适应性）选择密文攻击
+\subsubsection{}已知明文攻击
+\subsubsection{}唯密文攻击
 
 \section{扩展Euclidean算法计算最大公约数(a, b)以及整数x和y满足(a, b)=ax+by的过程，这里a和b都是整数。如何应用费马小定理计算$2^{1000000}$模$19$的最小正整数。如何应用中国剩余定理计算同余组。群、环、域的基本概念。}
 
@@ -109,18 +109,40 @@ $$ c=K_3 \oplus E_{k_2}(K_1\oplus m), m=D_{K_2}(K_3 \oplus c) \oplus K_1$$
 \subsection{系统参数选择}
 \subsubsection{}选择一个适当的素数$p$满足$p-1$可以被另一个素数$q$整除。（保证模$p$的离散对数在计算上不可能。）
 \subsubsection{}选择一个乘法阶为$q$的元$\beta, 1\le \beta \le p-1$。
-\subsubsection{}每一方得到一份真实的系统参数($p,q,\beta$)和信任中心T的验证公开密钥的函数，它可以验证T对消息$m$的签名$S_t(m)$。($S_t$涉及在签名之前的一个适当的公开的Hash函数和任意一个签名机制。)
+\subsubsection{}每一方得到一份真实的系统参数($p,q,\beta$)和信任中心T的验证公开密钥的函数，它可以验证T 对消息$m$的签名$S_t(m)$。($S_t$涉及在签名之前的一个适当的公开的Hash函数和任意一个签名机制。)
 \subsubsection{}选择一个安全参数$t$（例如，$t \ge40$),$2^t < q$(定义一个安全等级$2^t$)。
 
 \subsection{每个用户参数选择}
 \subsubsection{}每个实体$A$选择一个唯一身份$I_A$。
-\subsubsection{}$A$选择一个秘密密钥$a$,$0 \le a \le q-1$, 并计算$v \equiv \beta^{-\alpha} (mod p)$。
+\subsubsection{}$A$选择一个秘密密钥$a$,$0 \le a \le q-1$, 并计算$v \equiv \beta^{-\alpha} (mod\ p)$。
 \subsubsection{}$A$向$T$通过传统方式（例如，出示护照） 验证自己的身份，接着将真实的$v$传递给$T$，最后得到一个由$T$颁发的证书$cert_A=(I_A,v,S_T(I_A,v))$将$I_A$和$v$绑定。
 
 \subsection{协议执行} A按如下步骤向B验证自己的身份。
-\subsubsection{}A选择一个随机数$r$(承诺),$1\le r \le q-1$, 计算（证据）$x\equiv \beta^r(mod p)$, 并发送($cert_A, x$)给B。
+\subsubsection{}A选择一个随机数$r$(承诺),$1\le r \le q-1$, 计算（证据）$x\equiv \beta^r(mod\ p)$, 并发送($cert_A, x$)给B。
 \subsubsection{}B通过T在证书$cert_A$中的签名验证A的公开密钥$v$的真实性，接着发送一个(从未使用过的）随机数$e$(提问), $1 \le e \le 2^t$, 给A。
-\subsubsection{}A检查$1\le e \le2^t$并发送（回答）$y\equiv a·e+r(mod q)给B$。
-\subsubsection{}B计算$z\equiv \beta^y·v^e(mod p)$, 如果 $z=x$, 接受A的身份。
+\subsubsection{}A检查$1\le e \le2^t$并发送（回答）$y\equiv a·e+r(mod\ q)$给B。
+\subsubsection{}B计算$z\equiv \beta^y·v^e(mod\ p)$, 如果 $z=x$, 接受A的身份。
 \section{密钥协商中的站对站(STS)协议。密钥协商协议的基本安全要求有哪些？}
+
+\subsection{STS协议}
+\subsubsection{}符号$E$表示对称加密算法。 $S_A(m)$表示Alice对消息$m$的签名。
+\subsubsection{一次性的建立过程（定义和公开系统参数）}
+\begin{enumerate}
+\item 选择一个适当的素数$p$和一个模$p$的生成元$\alpha$并将它们公开。
+\item 每个实体分别选择RSA公开和秘密签名密钥，Alice选择（$e_A$,$n_A$)和$d_A$,Bob也有类似密钥对。假定每一方都可以访问对方真实的公开密钥。
+\end{enumerate}
+\subsubsection{协议执行} 做如下步骤以实现双方共享认证密钥（任何签名过程失败将导致协议直接以失败告终）
+\begin{enumerate}
+\item Alice选择一个随机秘密数字$x$,$1\le y \le p-2$,计算并发送$\alpha^x(mod p)$给Bob
+
+\item Bob产生一个随机秘密数字 $y$, $1\le y \le p-2$,计算共享密钥$K\equiv (\alpha^x)^y(mod p)$.Bob 对两个模幂的连续签名 再用共享密钥加密, 最后发送　$\alpha^y(mod p), E_K(S_B(\alpha^y, \alpha^x))$ 给Alice。
+\item Alice共享密钥$K\equiv (\alpha^y)^x(mod p)$, 解密加密数据$E_K(S_B(\alpha^y, \alpha^x))$ 并为Bob 的公开密钥验证签名。如果验证成功，Alice接受K确实为与Bob的共享密钥，最后发送 类似的$(E_K(S_A(\alpha^x, \alpha^y))$给Bob
+\item Bob也类似解密收到的$E_k(S_A(\alpha^x, \alpha^y))$并验证Alice的签名。如果成功，Bob接受K 确实为与Alice的共享密钥。
+\end{enumerate}
+\subsection{密码协商协议的基本安全要求}
+\subsubsection{已知密钥安全} 每次对密钥协商协议的运行都产生一个唯一的秘密密钥。这些密钥希望可以限制进行密码分析所能得到的数据数量，也希望能够限制密钥泄露带来的秘密数据泄露数量。协议应该达到这一安全目标即使攻击者已经掌握了一些之前的会话密钥。
+\subsubsection{前项安全} 如果一个或多个实体的长期秘密密钥泄露，以前由诚实实体建立的会话密钥不受影响。有时我们区分一个实体长期秘密密钥泄露(半前项秘密)和参与双方实体长期秘密密钥泄露(全前项秘密)两种情况。
+\subsubsection{密钥泄露冒充} 假定Alice的长期秘密密钥泄露。很明显，攻击者知道这个密钥可以冒充Alice，因为其确切掌握标定Alice身份的数据。但是，在某些情况下，我们希望这一泄露不能够让攻击者冒充其他实体欺骗Alice。
+\subsubsection{未知共享密钥攻击} 实体Alice结束协议执行后相信她与Bob共享密钥，虽然这是实际情况，但是Bob却错误的认为他与实体 Eve Alice共享密钥。
+
 \end{document}
